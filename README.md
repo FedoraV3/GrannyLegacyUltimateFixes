@@ -23,3 +23,4 @@ not dlls for melonloader/bepinex.
 # Notes
 - I will be using the optimization from my other project, [GrannyQOLMod](https://github.com/FedoraV3/GrannyQOLMod) but refined.
 - Most of the features will be re-used in the first iteration of the project, but more unique features will be added, as I want to combine all my small projects into one ultimate project.
+- The mod is required to be loaded before the game intro ends, otherwise it will bug! Which is why I used a modloader for ease of use.

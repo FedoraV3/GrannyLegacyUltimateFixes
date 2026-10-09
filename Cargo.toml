@@ -7,6 +7,8 @@ edition = "2024"
 crate-type = ["cdylib"]
 
 [dependencies]
+anyhow = "1.0.104"
+aobscan = "0.3.0"
 il2cpp-bridge-rs = "0.1.4"
 
 [dependencies.windows]
@@ -14,6 +16,8 @@ version = ">=0.59, <=0.62"
 features = [
     "Win32_Foundation",
     "Win32_Security",
-    "Win32_Storage_FileSystem",
     "Win32_System_Console",
+    "Win32_System_Memory",
+    "Win32_System_LibraryLoader",
+    "Win32_System_Threading"
 ]
