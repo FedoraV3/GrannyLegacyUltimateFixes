@@ -1,0 +1,36 @@
+# rust
+/target
+**/*.rs.bk
+*.pdb
+
+# ide
+.idea/
+*.iml
+.vscode/
+.vs/
+
+# claude code local settings
+.claude/settings.local.json
+
+# ida / reversing
+*.i64
+*.idb
+*.id0
+*.id1
+*.id2
+*.nam
+*.til
+*.dmp
+dump/
+il2cpp_dump/
+
+# built mod outputs
+*.asi
+*.dll
+*.exp
+*.lib
+
+# os junk
+Thumbs.db
+desktop.ini
+.DS_Store

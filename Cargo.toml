@@ -1,0 +1,19 @@
+[package]
+name = "GrannyUltimateFixes"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+il2cpp-bridge-rs = "0.1.4"
+
+[dependencies.windows]
+version = ">=0.59, <=0.62"
+features = [
+    "Win32_Foundation",
+    "Win32_Security",
+    "Win32_Storage_FileSystem",
+    "Win32_System_Console",
+]
