@@ -6,6 +6,7 @@ use windows::Win32::System::Console::AllocConsole;
 use windows::Win32::System::LibraryLoader::GetModuleHandleA;
 use windows::Win32::System::Threading::{CreateThread, THREAD_CREATION_FLAGS};
 use crate::features::requirement_remover::remover::remove_granny_steam_requirement;
+use crate::features::seed_limit_remover::remover::remove_seed_limit;
 
 pub mod memory;
 pub mod features;
@@ -46,9 +47,12 @@ unsafe extern "system" fn ultimate_thread(arg: *mut c_void) -> u32 {
     unsafe {
         AllocConsole().unwrap();
         remove_granny_steam_requirement().unwrap();
+        println!("Loaded granny steam requirement remover");
+
+        remove_seed_limit().unwrap();
+        println!("Loaded granny seed limit remover");
     }
 
-    println!("Loaded granny steam requirement remover");
 
     1
 }
