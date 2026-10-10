@@ -1,4 +1,5 @@
 pub mod aob;
+pub mod il2cpp_symbols;
 pub mod patch;
 
 //constants

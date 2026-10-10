@@ -10,6 +10,7 @@ crate-type = ["cdylib"]
 anyhow = "1.0.104"
 aobscan = "0.3.0"
 il2cpp-bridge-rs = "0.1.4"
+retour = "0.3.1"
 
 [dependencies.windows]
 version = ">=0.59, <=0.62"
@@ -17,6 +18,7 @@ features = [
     "Win32_Foundation",
     "Win32_Security",
     "Win32_System_Console",
+    "Win32_System_Diagnostics_Debug",
     "Win32_System_Memory",
     "Win32_System_LibraryLoader",
     "Win32_System_Threading"
