@@ -1,6 +1,7 @@
 use crate::features::optimization::optimizer;
-use crate::features::requirement_remover::remover::remove_granny_steam_requirement;
-use crate::features::seed_limit_remover::remover::remove_seed_limit;
+use crate::features::requirement_remover::emulator;
+use crate::features::seed_limit_remover::{revamper};
+use crate::memory::il2cpp_symbols::preload_il2cpp_symbols;
 use std::ffi::c_void;
 use std::thread::sleep;
 use std::time::Duration;
@@ -8,8 +9,6 @@ use windows::core::s;
 use windows::Win32::System::Console::AllocConsole;
 use windows::Win32::System::LibraryLoader::GetModuleHandleA;
 use windows::Win32::System::Threading::{CreateThread, THREAD_CREATION_FLAGS};
-use crate::features::skip_open_animation::skipper;
-use crate::memory::il2cpp_symbols::preload_il2cpp_symbols;
 
 pub mod memory;
 pub mod features;
@@ -38,7 +37,7 @@ unsafe extern "C" fn InitializeASI() {
     }
 }
 
-unsafe extern "system" fn ultimate_thread(arg: *mut c_void) -> u32 {
+unsafe extern "system" fn ultimate_thread(_arg: *mut c_void) -> u32 {
     // waiting until the gameassembly.dll is lodaed
     let _ga = loop {
         if let Ok(_h) = unsafe { GetModuleHandleA(s!("GameAssembly.dll")) } {
@@ -47,22 +46,14 @@ unsafe extern "system" fn ultimate_thread(arg: *mut c_void) -> u32 {
         sleep(Duration::from_millis(100));
     };
 
-
-    /* Things that have to be done before game intro */
-    unsafe {
-        AllocConsole().unwrap();
-        remove_granny_steam_requirement().unwrap();
-        println!("Loaded granny steam requirement remover");
-
-        remove_seed_limit().unwrap();
-        println!("Loaded granny seed limit remover");
-    }
+    AllocConsole().unwrap();
 
     /* Things that are done when IL2CPP IS initialized */
     preload_il2cpp_symbols().unwrap();
     il2cpp_bridge_rs::init("GameAssembly", || {
+        emulator::install_emulator().unwrap();
         optimizer::install_optimizations().unwrap();
-        skipper::granny_skip_animation().unwrap();
+        revamper::install_hooks().unwrap();
     });
 
     1

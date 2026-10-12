@@ -1,4 +1,3 @@
-use std::iter;
 use anyhow::Result;
 use windows::core::{HSTRING, PCWSTR};
 use windows::Win32::System::LibraryLoader::GetModuleHandleW;

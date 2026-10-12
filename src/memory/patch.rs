@@ -1,6 +1,8 @@
 use std::ffi::c_void;
 use anyhow::Result;
+use windows::Win32::System::Diagnostics::Debug::FlushInstructionCache;
 use windows::Win32::System::Memory::{VirtualProtect, PAGE_EXECUTE_READWRITE, PAGE_PROTECTION_FLAGS};
+use windows::Win32::System::Threading::GetCurrentProcess;
 
 pub unsafe fn patch_bytes(address: usize, size: usize, bytes: &[u8]) -> Result<()> {
 
@@ -32,6 +34,14 @@ pub unsafe fn patch_bytes(address: usize, size: usize, bytes: &[u8]) -> Result<(
                 &mut shit as *mut PAGE_PROTECTION_FLAGS
             )?;
         }
+    }
+
+    unsafe {
+        FlushInstructionCache(
+            GetCurrentProcess(),
+            Some(address as *const c_void),
+            size
+        )?;
     }
 
     Ok(())
